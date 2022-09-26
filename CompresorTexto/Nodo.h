@@ -35,7 +35,6 @@ public:
 	void setDer(Nodo* _Der);
 	void setCamino(int _camino);
 	void setAnterior(Nodo* _Anterior);
-	
 	Nodo* getAnterior();
 	void setRepeticion(int _repeticiones);
 	Nodo* getSiguiente();

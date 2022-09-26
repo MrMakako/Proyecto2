@@ -12,6 +12,7 @@ int main() {
 	CompresorTexto.ConstruirArbol();
 	CompresorTexto.GenerarCodigos();
 	CompresorTexto.GenerarCodigoHuffman();
+	CompresorTexto.GuardarFicheros();
 	
 
 

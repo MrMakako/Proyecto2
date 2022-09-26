@@ -19,6 +19,8 @@ public:
 
 	void Inserta(ListNode* Nodo);
 	void Imprimir();
+
+
 	ListNode* Buscar(char letra);
 
 
