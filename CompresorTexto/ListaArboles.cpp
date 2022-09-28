@@ -35,6 +35,68 @@ void ListaArboles::Insertar(Nodo* _Raiz)
 
 }
 
+void ListaArboles::Insertar(Nodo _Raiz)
+{
+	Nodo* Nuevo = new Nodo();
+	Nuevo->setCamino(_Raiz.getCamino());
+	Nuevo->Letra = _Raiz.getLetra();
+	Nuevo->setRepeticion(_Raiz.getRepeticion());
+	if (RaizInicial == nullptr) {
+		RaizInicial = Nuevo;
+		Ultimo = Nuevo;
+
+
+	}
+	else {
+
+
+
+		Ultimo->setSiguiente(Nuevo);
+		Nuevo->setAnterior(Ultimo);
+
+		Ultimo = Ultimo->getSiguiente();
+
+	}
+
+
+}
+
+void ListaArboles::ReconstruirArbol()
+{
+
+
+	std::ifstream fich = std::ifstream("Arbol.acf", std::ios::binary);
+
+	delete RaizInicial;
+	delete Ultimo;
+
+	RaizInicial = nullptr;
+	Ultimo = nullptr;
+
+
+
+	Nodo Raiz;
+
+	if (fich) {
+		fich.seekg(0, std::ios::beg);
+		fich.read((reinterpret_cast<char*>(&Raiz)), sizeof(Nodo));
+		do {
+
+	
+			std::cout << Raiz.getLetra() << "------GUARANDDO\n";
+			Insertar(Raiz);
+			fich.read((reinterpret_cast<char*>(&Raiz)), sizeof(Nodo));
+		
+		} while (!fich.eof());
+	
+
+		
+		fich.close();
+	}
+	 ConstruirArbol();
+
+}
+
 void ListaArboles::SuprimirUltimosDos()
 {
 	Nodo* Temp1 = RaizInicial;
@@ -49,6 +111,10 @@ void ListaArboles::SuprimirUltimosDos()
 
 
 }
+
+
+
+
 
 Nodo* ListaArboles::ConstruirArbol()
 {
@@ -83,6 +149,49 @@ Nodo* ListaArboles::getUltimo()
 
 
 	return nullptr;
+}
+
+void ListaArboles::GuardarArbol()
+{
+
+	std::remove("Arbol.acf");
+	Nodo ArbolGaurdar=*RaizInicial;
+
+	std:: ofstream Fichero = std::ofstream("Arbol.acf", std::ios::app, std::ios::binary);
+	std::cout << "Esta es la raiz inicial que se gaurda:";
+
+	while (true) {
+	
+	
+		Fichero.write((reinterpret_cast<const char*>(&ArbolGaurdar)), sizeof(Nodo));
+
+
+		
+		if (ArbolGaurdar.getSiguiente() == nullptr) {
+
+			break;
+		}
+		
+
+			ArbolGaurdar = *ArbolGaurdar.getSiguiente();
+		
+		
+	
+	
+		//para almacenar el arbol lo haremos cunado este separado despues solo deberiamos de ordnearlo para obtener el resultado;;;;;
+
+	
+	
+	}
+	Fichero.close();
+	
+
+
+
+
+
+
+
 }
 
 void ListaArboles::setRaiz(Nodo* Raiz)

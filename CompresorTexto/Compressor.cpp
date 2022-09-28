@@ -135,14 +135,7 @@ void Compressor::GuardarFicheros()
 
 	FicheroSalida.close();
 	//La instancia Fichero se destrye al finalizar la funcion.
-	Nodo ArbolGaurdar = *Arboles.getRaiz();
-	Fichero = std::fstream("Arbol.acf",std::ios::out,std::ios::binary);
-	std::cout << "Esta es la raiz inicial que se gaurda:";
-	
-	Fichero.write((reinterpret_cast<const char*>(&ArbolGaurdar)), sizeof(Nodo));
 
-
-	Fichero.close();
 	return;
 	
 
@@ -174,26 +167,9 @@ void Compressor::Decodificar()
 		std::cout <<"Error al abrir el fichero funcion decodificar\n";
 	}
 
-	std::ifstream fich = std::ifstream("Arbol.acf", std::ios::binary);
+	Arboles.ReconstruirArbol();
 
-
-
-
-	if (fich) {
-		fich.seekg(0, std::ios::beg);
-
-		fich.read((reinterpret_cast< char*>(&RaizPrincipal)), sizeof(Nodo));
-
-		curr = &RaizPrincipal;
-		fich.close();
-	}
-	else {
-	
-		std::cout << "El fichero no existe\n";
-	
-	}
-
-
+	curr = Arboles.getRaiz();
 
 	std::string palabra="";
 	for (int i = 0; i < CodigoHuffman.length();i++) {
@@ -202,26 +178,26 @@ void Compressor::Decodificar()
 		if (CodigoHuffman[i] == '1') {
 			
 			if (curr != nullptr) {
-				curr = curr->getDer_C();
+				curr = curr->getDerecha();
 			}
 		
 		}
 		else {
 			
 			
-				curr = curr->getIzq_C();
+				curr = curr->getIzquierda();
 			
 		
 
 
 		}
 
-		if (curr->getIzq_C() == nullptr && curr->getDer_C() == nullptr) {
+		if (curr->getDerecha() == nullptr && curr->getIzquierda() == nullptr) {
 
 
 
 			palabra += curr->Letra;
-			curr =&RaizPrincipal;
+			curr = Arboles.getRaiz();
 
 
 		}
@@ -244,6 +220,8 @@ void Compressor::ConstruirArbol()
 	std::cout << "Ordenado!!!!:";
 	Arboles.Imprimir();
 	std::cout << "\n";
+	Arboles.GuardarArbol();
+	std::cout << "Se empieza a arregkar el arbool-----------------------\n";
 	Arboles.ConstruirArbol();
 }
 

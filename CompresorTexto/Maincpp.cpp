@@ -7,10 +7,10 @@
 int main() {
 
 
-	Compressor CompresorTexto("Laptop Gamer");
+	Compressor CompresorTexto("Laptdsfsdfdsfsdfoprr");
 	CompresorTexto.Imprimir();
-CompresorTexto.ConstruirArbol();
-  CompresorTexto.GenerarCodigos();
+   CompresorTexto.ConstruirArbol();
+    CompresorTexto.GenerarCodigos();
 	CompresorTexto.GenerarCodigoHuffman();
 	CompresorTexto.GuardarFicheros();
 	CompresorTexto.Decodificar();

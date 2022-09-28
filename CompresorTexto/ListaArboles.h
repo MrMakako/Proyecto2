@@ -2,6 +2,7 @@
 #include "Nodo.h"
 #include <string>;
 #include "iostream"
+#include  <fstream>
 class ListaArboles
 {
 private:
@@ -11,12 +12,15 @@ public :
 	ListaArboles();
 
 	void Insertar(Nodo *_Raiz);
-
+	void Insertar(Nodo _Raiz);
+	void ReconstruirArbol();
 	void SuprimirUltimosDos();
 	Nodo* ConstruirArbol();
 	int size();
 
 	Nodo* getUltimo();
+
+	void GuardarArbol();
 	void setRaiz(Nodo* Raiz);
 	Nodo* Obtener();
 	void QuitarAnteriores();
