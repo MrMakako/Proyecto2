@@ -11,6 +11,7 @@ Compressor::Compressor()
 	Fichero = std::fstream("Codigo.txt");
 	Codigos = Lista();
 	CodigoHuffman = "";
+
 }
 
 Compressor::Compressor(std::string _Texto) {
@@ -134,10 +135,11 @@ void Compressor::GuardarFicheros()
 
 	FicheroSalida.close();
 	//La instancia Fichero se destrye al finalizar la funcion.
-
-	Fichero = std::fstream("Arbol.acf",std::ios::out| std::ios::app,std::ios::binary);
-
-	Fichero.write((char*)Arboles.getRaiz(),sizeof(Arboles.getRaiz()));
+	Nodo ArbolGaurdar = *Arboles.getRaiz();
+	Fichero = std::fstream("Arbol.acf",std::ios::out,std::ios::binary);
+	std::cout << "Esta es la raiz inicial que se gaurda:";
+	
+	Fichero.write((reinterpret_cast<const char*>(&ArbolGaurdar)), sizeof(Nodo));
 
 
 	Fichero.close();
@@ -151,34 +153,84 @@ void Compressor::GuardarFicheros()
 
 void Compressor::Decodificar()
 {
-	Fichero = std::fstream("Codigo.txt",std::ios::in);
+	Nodo* curr=nullptr;
+	Fichero = std::fstream("Codigo.txt", std::ios::in);
 	if (Fichero.is_open()) {
-		std::string num="";
+		std::string num = "";
 		CodigoHuffman = "";
 		while (!Fichero.eof()) {
-			Fichero >>num;
+			Fichero >> num;
 			CodigoHuffman.append(num);
-		
+			 num = "";
+
 		}
 
 
 		Fichero.close();
-	
+
 	}
+
 	else {
 		std::cout <<"Error al abrir el fichero funcion decodificar\n";
 	}
 
-	Fichero = std::fstream("Arbol.acf", std::ios::in, std::ios::binary);
-	if (Fichero) {
-		Fichero.read((char*)Arboles.getRaiz(), sizeof(Arboles.getRaiz()));
+	std::ifstream fich = std::ifstream("Arbol.acf", std::ios::binary);
+
+
+
+
+	if (fich) {
+		fich.seekg(0, std::ios::beg);
+
+		fich.read((reinterpret_cast< char*>(&RaizPrincipal)), sizeof(Nodo));
+
+		curr = &RaizPrincipal;
+		fich.close();
 	}
 	else {
 	
 		std::cout << "El fichero no existe\n";
 	
 	}
-	Fichero.close();
+
+
+
+	std::string palabra="";
+	for (int i = 0; i < CodigoHuffman.length();i++) {
+	
+
+		if (CodigoHuffman[i] == '1') {
+			
+			if (curr != nullptr) {
+				curr = curr->getDer_C();
+			}
+		
+		}
+		else {
+			
+			
+				curr = curr->getIzq_C();
+			
+		
+
+
+		}
+
+		if (curr->getIzq_C() == nullptr && curr->getDer_C() == nullptr) {
+
+
+
+			palabra += curr->Letra;
+			curr =&RaizPrincipal;
+
+
+		}
+
+	
+		
+	}
+	std::cout << "\n se decofico:" << palabra<<"\n";
+
 
 
 
@@ -201,6 +253,13 @@ int Compressor::Repeticiones(char Letra)
 	for (int i = 0; i < Letras.size(); i++) {
 		if (Letras[i] == Letra) {
 			cantidad++;
+
+
+
+
+
+
+
 		}
 		
 	}
@@ -220,7 +279,7 @@ void Compressor::EliminarRepeticiones()
 			if (Letras[x]==Letras[i]) {
 
 				Letras.erase(Letras.begin() + i);
-				
+					
 				
 			}
 			

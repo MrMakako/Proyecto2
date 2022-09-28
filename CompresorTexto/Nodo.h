@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
-
-class Nodo
+#include "Serializado.h"
+class Nodo:public Serializado
 {
 public:
 
@@ -25,6 +25,13 @@ private:
 	Nodo* Siguiente;
 	Nodo* Izq;
 	Nodo* Der;
+
+	Serializado Izq_C;
+	Serializado Der_C;
+
+	//Estos nodos gaurdaran direcciones de memoeria fijas para realizar la serailizacion 
+
+	
 	Nodo* Anterior;
 	
 public:
@@ -35,6 +42,9 @@ public:
 	void setDer(Nodo* _Der);
 	void setCamino(int _camino);
 	void setAnterior(Nodo* _Anterior);
+
+	Nodo *getDer_C();
+	Nodo* getIzq_C();
 	Nodo* getAnterior();
 	void setRepeticion(int _repeticiones);
 	Nodo* getSiguiente();
@@ -42,10 +52,9 @@ public:
 	Nodo* getIzquierda();
 	int getCamino();
 	int getRepeticion();
-
+	char getLetra();
 
 	char Letra;
-
 
 
 

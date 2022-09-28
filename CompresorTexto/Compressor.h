@@ -19,7 +19,9 @@ class Compressor
 	Lista Codigos;//se guardaran los codigos asignados
 	Pila Caminos;//Guardaremos los caminos
 	std::string CodigoHuffman;//Aqui se guardara el codigo huffman generado;
-	
+
+
+	Nodo RaizPrincipal;
 
 
 public:

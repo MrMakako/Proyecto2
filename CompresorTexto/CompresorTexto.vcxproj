@@ -146,6 +146,7 @@
     <ClInclude Include="Nodo.h" />
     <ClInclude Include="Pila.h" />
     <ClInclude Include="PilaNode.h" />
+    <ClInclude Include="Serializado.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Compressor.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Nodo.cpp" />
     <ClCompile Include="Pila.cpp" />
     <ClCompile Include="PilaNode.cpp" />
+    <ClCompile Include="Serializado.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

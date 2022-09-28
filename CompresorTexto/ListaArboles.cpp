@@ -85,6 +85,11 @@ Nodo* ListaArboles::getUltimo()
 	return nullptr;
 }
 
+void ListaArboles::setRaiz(Nodo* Raiz)
+{
+	RaizInicial = Raiz;
+}
+
 Nodo* ListaArboles::Obtener()
 {
 	return nullptr;
@@ -152,7 +157,10 @@ Nodo* ListaArboles::ConstruirArbol(Nodo* Raiz)
 		else {	
 			return ConstruirArbol(NuevoNodo);
 		}
-	
+		
+
+
+
 
 		
 		
@@ -174,8 +182,10 @@ void ListaArboles::Imprimir()
 
 	while (Actual != nullptr) {
 		
-
-		std::cout << Actual->Letra;
+		if (!Actual->Letra ) {
+			std::cout << Actual->Letra;
+		}
+	
 
 		Actual = Actual->getSiguiente();
 	
@@ -256,6 +266,7 @@ void ListaArboles::Ordenar()
 				
 			}
 			std::cout << "Estamos en:" << Actual->getRepeticion() << "\n";
+
 			Actual = Actual->getSiguiente();
 		
 

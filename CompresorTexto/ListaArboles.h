@@ -17,7 +17,7 @@ public :
 	int size();
 
 	Nodo* getUltimo();
-	
+	void setRaiz(Nodo* Raiz);
 	Nodo* Obtener();
 	void QuitarAnteriores();
 	Nodo* getRaiz();
